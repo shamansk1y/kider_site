@@ -1,11 +1,11 @@
 from django.contrib import admin
-from .models import Team, Slider, About, Testimonial
+from .models import Team, Slider, About, Testimonial, Classes
 
 @admin.register(Team)
 class TeamAdmin(admin.ModelAdmin):
     model = Team
-    list_editable = ['name', 'position', 'is_visible', 'profession', 'image']
-    list_display = ['name', 'position', 'is_visible', 'profession', 'image']
+    list_editable = ['name', 'position', 'is_visible', 'profession', 'image', 'image_clas']
+    list_display = ['name', 'position', 'is_visible', 'profession', 'image', 'image_clas']
     list_display_links = None
 
 
@@ -26,6 +26,14 @@ class AboutAdmin(admin.ModelAdmin):
 @admin.register(Testimonial)
 class TestimonialAdmin(admin.ModelAdmin):
     model = Testimonial
-    list_editable = ['name', 'position', 'is_visible', 'profession', 'image']
-    list_display = ['name', 'position', 'is_visible', 'profession', 'image']
+    list_editable = ['name', 'position', 'is_visible', 'profession', 'image', 'desc']
+    list_display = ['name', 'position', 'is_visible', 'profession', 'image', 'desc']
     list_display_links = None
+
+@admin.register(Classes)
+class ClassesAdmin(admin.ModelAdmin):
+    model = Classes
+    list_editable = ['title', 'price', 'is_visible', 'position', 'image', 'teacher']
+    list_display = ['title', 'price', 'is_visible', 'position', 'image', 'teacher']
+    list_display_links = None
+
