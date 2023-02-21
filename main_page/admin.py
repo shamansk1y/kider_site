@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Team, Slider, About, Testimonial, Classes, Facilities, Call, Gallery, Contacts
+from .models import Team, Slider, About, Testimonial, Classes, Facilities, Call, Gallery, Contacts, Appointment
 
 
 @admin.register(Team)
@@ -67,10 +67,18 @@ class GalleryAdmin(admin.ModelAdmin):
     list_display = ['position', 'image', 'is_visible']
     list_display_links = None
 
+
 @admin.register(Contacts)
 class ContactsAdmin(admin.ModelAdmin):
     model = Contacts
     list_editable = ['h1', 'address', 'phone', 'email', 'twi_url', 'fb_url', 'youtube_url', 'in_url']
     list_display = ['h1', 'address', 'phone', 'email', 'twi_url', 'fb_url', 'youtube_url', 'in_url']
+    list_display_links = None
+
+@admin.register(Appointment)
+class AppointmentAdmin(admin.ModelAdmin):
+    model = Appointment
+    list_editable = ['name', 'email', 'child_name', 'child_age', 'message', 'is_processed']
+    list_display = ['name', 'email', 'child_name', 'child_age', 'message', 'date', 'date_processing', 'is_processed']
     list_display_links = None
 

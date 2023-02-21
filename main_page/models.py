@@ -189,3 +189,21 @@ class Contacts(models.Model):
         ordering = ('h1',)
         verbose_name = 'Контакт'
         verbose_name_plural = 'Наші контакти'
+
+class Appointment(models.Model):
+    name = models.CharField(max_length=50)
+    email = models.EmailField()
+    child_name = models.CharField(max_length=50)
+    child_age = models.SmallIntegerField()
+    message = models.TextField(max_length=250, blank=True)
+
+    date = models.DateField(auto_now_add=True )
+    date_processing = models.DateField(auto_now=True )
+    is_processed = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f'{self.name}: {self.email}'
+
+    class Meta:
+        ordering = ('-date',)
+        verbose_name_plural = 'Призначати зустріч'
