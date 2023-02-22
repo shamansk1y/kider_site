@@ -27,7 +27,6 @@ def index(request):
     context = get_common_context()
     return render(request, 'index.html', context=context)
 
-
 def about(request):
     context = get_common_context()
     return render(request, 'about.html', context=context)
@@ -41,7 +40,7 @@ def classes(request):
         make_appointment = MakeAppointmentForm(request.POST)
         if make_appointment.is_valid():
             make_appointment.save()
-            return redirect('classes/')
+            return redirect('classes')
 
     context = get_common_context()
     return render(request, 'classes.html', context=context)
@@ -51,7 +50,7 @@ def join_us(request):
         make_appointment = MakeAppointmentForm(request.POST)
         if make_appointment.is_valid():
             make_appointment.save()
-            return redirect('join_us')
+            return redirect('/')
 
     context = get_common_context()
     return render(request, 'join_us.html', context=context)

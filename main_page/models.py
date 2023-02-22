@@ -1,14 +1,8 @@
 from django.db import models
-import os
-import uuid
+from .utils import get_file_name
 
 
 class Team(models.Model):
-
-    def get_file_name(self, file_name: str) -> str:
-        ext = file_name.strip().split('.')[-1]
-        new_file_name = f'{uuid.uuid4()}.{ext}'
-        return os.path.join('team/', new_file_name)
 
     name = models.CharField(max_length=50, verbose_name="Повне ім'я")
     profession = models.TextField(max_length=50, verbose_name="Посада")
@@ -27,11 +21,6 @@ class Team(models.Model):
 
 
 class Slider(models.Model):
-
-    def get_file_name(self, file_name: str) -> str:
-        ext = file_name.strip().split('.')[-1]
-        new_file_name = f'{uuid.uuid4()}.{ext}'
-        return os.path.join('slider/', new_file_name)
 
     title = models.CharField(max_length=50, verbose_name="Назва слайду")
     position = models.SmallIntegerField(unique=True, verbose_name="Позиція")
@@ -53,10 +42,6 @@ class Slider(models.Model):
 
 
 class About(models.Model):
-    def get_file_name(self, file_name: str) -> str:
-        ext = file_name.strip().split('.')[-1]
-        new_file_name = f'{uuid.uuid4()}.{ext}'
-        return os.path.join('about/', new_file_name)
 
     h1 = models.CharField(max_length=255, verbose_name="Текст заголовка")
     desc = models.TextField(max_length=1000, verbose_name="Опис")
@@ -78,10 +63,6 @@ class About(models.Model):
 
 
 class Testimonial(models.Model):
-    def get_file_name(self, file_name: str) -> str:
-        ext = file_name.strip().split('.')[-1]
-        new_file_name = f'{uuid.uuid4()}.{ext}'
-        return os.path.join('testimonial/', new_file_name)
 
     name = models.CharField(max_length=50, verbose_name="Повне ім'я")
     profession = models.TextField(max_length=50, verbose_name="Посада")
@@ -99,10 +80,6 @@ class Testimonial(models.Model):
 
 
 class Classes(models.Model):
-    def get_file_name(self, file_name: str) -> str:
-        ext = file_name.strip().split('.')[-1]
-        new_file_name = f'{uuid.uuid4()}.{ext}'
-        return os.path.join('classes/', new_file_name)
 
     title = models.CharField(max_length=50, verbose_name="Назва")
     price = models.DecimalField(max_digits=6, decimal_places=2, verbose_name="Ціна")
@@ -139,10 +116,6 @@ class Facilities(models.Model):
         verbose_name_plural = 'Шкільні зручності'
 
 class Call(models.Model):
-    def get_file_name(self, file_name: str) -> str:
-        ext = file_name.strip().split('.')[-1]
-        new_file_name = f'{uuid.uuid4()}.{ext}'
-        return os.path.join('call/', new_file_name)
 
     title = models.CharField(max_length=50, verbose_name="Заговок")
     desc = models.TextField(max_length=500, verbose_name="Текст", blank=True)
@@ -160,10 +133,6 @@ class Call(models.Model):
         verbose_name_plural = 'Заклик'
 
 class Gallery(models.Model):
-    def get_file_name(self, file_name: str) -> str:
-        ext = file_name.strip().split('.')[-1]
-        new_file_name = f'{uuid.uuid4()}.{ext}'
-        return os.path.join('gallery/', new_file_name)
 
     image = models.ImageField(upload_to=get_file_name, blank=True, verbose_name="Зображення")
     position = models.SmallIntegerField(unique=True, verbose_name="Позиція")
@@ -196,7 +165,6 @@ class Appointment(models.Model):
     child_name = models.CharField(max_length=50)
     child_age = models.SmallIntegerField()
     message = models.TextField(max_length=250, blank=True)
-
     date = models.DateField(auto_now_add=True )
     date_processing = models.DateField(auto_now=True )
     is_processed = models.BooleanField(default=False)
