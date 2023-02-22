@@ -10,8 +10,8 @@
                             <div class="col-10 col-lg-8">
                                 <h1 class="display-2 text-white animated slideInDown mb-4">{{ slide.h_1 }}</h1>
                                 <p class="fs-5 fw-medium text-white mb-4 pb-2">{{ slide.desc }}</p>
-                                <a href="" class="btn btn-primary rounded-pill py-sm-3 px-sm-5 me-3 animated slideInLeft">{{ slide.tab_1 }}</a>
-                                <a href="" class="btn btn-dark rounded-pill py-sm-3 px-sm-5 animated slideInRight">{{ slide.tab_2 }}</a>
+                                <a href="{% url 'about' %}" class="btn btn-primary rounded-pill py-sm-3 px-sm-5 me-3 animated slideInLeft">{{ slide.tab_1 }}</a>
+                                <a href="{% url 'classes' %}" class="btn btn-dark rounded-pill py-sm-3 px-sm-5 animated slideInRight">{{ slide.tab_2 }}</a>
                             </div>
                         </div>
                     </div>
