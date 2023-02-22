@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Team, Slider, About, Testimonial, Classes, Facilities, Call, Gallery, Contacts, Appointment
+from .models import Team, Slider, About, Testimonial, Classes, Facilities, Call, Gallery, Contacts, Appointment,\
+    Subscription
 
 
 @admin.register(Team)
@@ -82,3 +83,9 @@ class AppointmentAdmin(admin.ModelAdmin):
     list_display = ['name', 'email', 'child_name', 'child_age', 'message', 'date', 'date_processing', 'is_processed']
     list_display_links = None
 
+@admin.register(Subscription)
+class SubscriptionAdmin(admin.ModelAdmin):
+    model = Subscription
+    list_editable = ['email', 'is_processed']
+    list_display = ['email', 'date', 'date_processing', 'is_processed']
+    list_display_links = None

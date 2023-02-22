@@ -1,5 +1,5 @@
 from django import forms
-from main_page.models import Appointment
+from main_page.models import Appointment, Subscription
 
 
 class MakeAppointmentForm(forms.ModelForm):
@@ -53,3 +53,16 @@ class MakeAppointmentForm(forms.ModelForm):
     class Meta:
         model = Appointment
         fields = ['name', 'email', 'child_name', 'child_age', 'message']
+
+
+class SubscriptionForm(forms.ModelForm):
+    email = forms.EmailField(
+        widget=forms.EmailInput(
+            attrs={
+                'class': "form-control bg-transparent w-100 py-3 ps-4 pe-5",
+                'type': "text",
+                'placeholder': "Your email"
+            }))
+    class Meta:
+        model = Subscription
+        fields = ['email']

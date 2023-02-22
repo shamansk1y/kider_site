@@ -174,4 +174,18 @@ class Appointment(models.Model):
 
     class Meta:
         ordering = ('-date',)
-        verbose_name_plural = 'Призначати зустріч'
+        verbose_name_plural = 'Призначити зустріч'
+
+
+class Subscription(models.Model):
+    email = models.EmailField()
+    date = models.DateField(auto_now_add=True )
+    date_processing = models.DateField(auto_now=True )
+    is_processed = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f'{self.date}: {self.email}'
+
+    class Meta:
+        ordering = ('-date',)
+        verbose_name_plural = 'Підписка на email розсилку'
