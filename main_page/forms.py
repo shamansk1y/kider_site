@@ -1,5 +1,5 @@
 from django import forms
-from main_page.models import Appointment, Subscription
+from main_page.models import Appointment, Subscription, ContactUs
 
 
 class MakeAppointmentForm(forms.ModelForm):
@@ -17,19 +17,21 @@ class MakeAppointmentForm(forms.ModelForm):
     email = forms.EmailField(
         widget=forms.EmailInput(
             attrs={
-                'type':"email",
+                'type': "email",
                 'class': "form-control border-0",
                 'id': "gmail",
-                'placeholder': "Gurdian Email"}))
+                'placeholder': "Gurdian Email"
+            }))
 
     child_name = forms.CharField(
         min_length=2,
         max_length=50,
         widget=forms.TextInput(
-            attrs={'type': "text",
-                    'class': "form-control border-0",
-                    'id': "cname",
-                    'placeholder': "Child Name"}))
+            attrs={
+                'type': "text",
+                'class': "form-control border-0",
+                'id': "cname",
+                'placeholder': "Child Name"}))
 
     child_age = forms.CharField(
         max_length=2,
@@ -48,7 +50,8 @@ class MakeAppointmentForm(forms.ModelForm):
                 'placeholder': "Leave a message here",
                 'id': "message",
                 'style': "height: 100px",
-                "message": 'Message'}))
+                "message": 'Message'
+            }))
 
     class Meta:
         model = Appointment
@@ -66,3 +69,49 @@ class SubscriptionForm(forms.ModelForm):
     class Meta:
         model = Subscription
         fields = ['email']
+
+
+class ContactUsForm(forms.ModelForm):
+    name = forms.CharField(
+        max_length=50,
+        widget=forms.TextInput(
+            attrs={
+                'type': "text",
+                'class': "form-control border-0",
+                'id': "name",
+                'placeholder': "Your Name"
+            }))
+
+    email = forms.EmailField(
+        widget=forms.EmailInput(
+            attrs={
+                'type': "email",
+                'class': "form-control border-0",
+                'id': "email",
+                'placeholder': "Your Email"
+            }))
+
+    subject = forms.CharField(
+        max_length=50,
+        widget=forms.TextInput(
+            attrs={
+                'type': "text",
+                'class': "form-control border-0",
+                'id': "subject",
+                'placeholder': "Subject"
+            }))
+
+
+    message = forms.CharField(
+        max_length=300,
+        widget=forms.Textarea(
+            attrs={
+                'class': "form-control border-0",
+                'placeholder': "Leave a message here",
+                'id': "message",
+                'style': "height: 100px"
+            }))
+
+    class Meta:
+        model = ContactUs
+        fields = ['name', 'email', 'subject', 'message']

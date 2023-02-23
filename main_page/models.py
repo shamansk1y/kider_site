@@ -165,6 +165,7 @@ class Appointment(models.Model):
     child_name = models.CharField(max_length=50)
     child_age = models.SmallIntegerField()
     message = models.TextField(max_length=250, blank=True)
+
     date = models.DateField(auto_now_add=True )
     date_processing = models.DateField(auto_now=True )
     is_processed = models.BooleanField(default=False)
@@ -189,3 +190,21 @@ class Subscription(models.Model):
     class Meta:
         ordering = ('-date',)
         verbose_name_plural = 'Підписка на email розсилку'
+
+
+class ContactUs(models.Model):
+    name = models.CharField(max_length=50)
+    email = models.EmailField()
+    message = models.TextField(max_length=250, blank=True)
+    subject = models.CharField(max_length=50)
+
+    date = models.DateField(auto_now_add=True )
+    date_processing = models.DateField(auto_now=True )
+    is_processed = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f'{self.name}: {self.email}'
+
+    class Meta:
+        ordering = ('-date',)
+        verbose_name_plural = "Зворотній зв'язок"
