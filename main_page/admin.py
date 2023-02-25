@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import Team, Slider, About, Testimonial, Classes, Facilities, Call, Gallery, Contacts, Appointment,\
-    Subscription, ContactUs, Schedule
+    Subscription, ContactUs, Schedule, Headlines
 
 
 @admin.register(Team)
@@ -104,3 +104,14 @@ class ScheduleAdmin(admin.ModelAdmin):
     list_editable = ['title', 'position', 'image', 'is_visible', 'desc']
     list_display = ['title', 'position', 'image', 'is_visible', 'desc']
     list_display_links = None
+
+
+@admin.register(Headlines)
+class HeadlinesAdmin(admin.ModelAdmin):
+    model = Headlines
+    list_editable = ['title_facilities', 'desc_facilities', 'title_classes', 'desc_classes', 'title_teachers',
+                     'desc_teachers', 'title_testimonial', 'desc_testimonial']
+    list_display = ['title_facilities', 'desc_facilities', 'title_classes', 'desc_classes', 'title_teachers',
+                    'desc_teachers', 'title_testimonial', 'desc_testimonial']
+    list_display_links = None
+

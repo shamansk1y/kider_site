@@ -1,5 +1,5 @@
 from .forms import MakeAppointmentForm, SubscriptionForm, ContactUsForm
-from .models import Slider, Team, About, Testimonial, Classes, Facilities, Call, Gallery, Contacts, Schedule
+from .models import Slider, Team, About, Testimonial, Classes, Facilities, Call, Gallery, Contacts, Schedule, Headlines
 
 
 def get_common_context():
@@ -18,7 +18,7 @@ def get_common_context():
         'subscription': SubscriptionForm(),
         'contact_us': ContactUsForm(),
         'schedule': Schedule.objects.get(),
-
+        'headlines': Headlines.objects.all(),
     }
 
 

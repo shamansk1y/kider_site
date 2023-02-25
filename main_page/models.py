@@ -11,6 +11,9 @@ class Team(models.Model):
     image = models.ImageField(upload_to=get_file_name, blank=True, verbose_name="Фото")
     desc = models.TextField(max_length=500, verbose_name="Посада", blank=True)
     image_clas = models.ImageField(upload_to=get_file_name, blank=True, verbose_name="Фото клас")
+    twi_url = models.URLField(blank=True, verbose_name="Посилання на twitter", default='https://twitter.com/')
+    fb_url = models.URLField(blank=True, verbose_name="Посилання на facebook", default='https://www.facebook.com/')
+    in_url = models.URLField(blank=True, verbose_name="Посилання на instagram", default='https://www.instagram.com/')
 
     def __str__(self):
         return f'{self.name}'
@@ -210,6 +213,23 @@ class ContactUs(models.Model):
         verbose_name_plural = "Зворотній зв'язок"
 
 
+class Headlines(models.Model):
+    title_facilities = models.CharField(max_length=50, verbose_name="Заговок facilities")
+    desc_facilities = models.TextField(max_length=500, verbose_name="Текст facilities", blank=True)
+    title_classes = models.CharField(max_length=50, verbose_name="Заговок classes")
+    desc_classes = models.TextField(max_length=500, verbose_name="Текст classes ", blank=True)
+    title_teachers = models.CharField(max_length=50, verbose_name="Заговок teachers")
+    desc_teachers = models.TextField(max_length=500, verbose_name="Текст teachers", blank=True)
+    title_testimonial = models.CharField(max_length=50, verbose_name="Заговок testimonial")
+    desc_testimonial = models.TextField(max_length=500, verbose_name="Текст testimonial", blank=True)
+    def __str__(self):
+        return f'{self.title_facilities}'
+
+    class Meta:
+        verbose_name_plural = "Заголовки"
+
+
+
 class Schedule(models.Model):
 
     title = models.CharField(max_length=50, verbose_name="Заговок")
@@ -225,3 +245,5 @@ class Schedule(models.Model):
     class Meta:
         ordering = ('position',)
         verbose_name_plural = 'Розклад занять'
+
+
