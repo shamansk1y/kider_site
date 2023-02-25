@@ -30,6 +30,8 @@
 
     <!-- Template Stylesheet -->
     <link href='{% static "css/style.css" %}' rel="stylesheet">
+
+
 </head>
 
 <body>
@@ -56,14 +58,32 @@
                     <a href="{% url 'index' %}" class="nav-item nav-link{% if request.path == '/' %} active{% endif %}">Home</a>
                     <a href="{% url 'about' %}" class="nav-item nav-link{% if request.path == '/about/' %} active{% endif %}">About Us</a>
                     <a href="{% url 'classes' %}" class="nav-item nav-link{% if request.path == '/classes/' %} active{% endif %}">Classes</a>
+                    <a href="{% url 'contacts' %}" class="nav-item nav-link{% if request.path == '/contacts/' %} active{% endif %}">Contact Us</a>
+                    {% if user_auth %}
+                        <a href="{% url 'schedule' %}" class="nav-item nav-link{% if request.path == '/schedule/' %} active{% endif %}">Schedule</a>
+                    {% endif %}
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle{% if '/pages/' in request.path %} active{% endif %}" data-bs-toggle="dropdown">Pages</a>
+                        <a href="#" class="nav-link dropdown-toggle{% if '/Account/' in request.path %} active{% endif %}" data-bs-toggle="dropdown">Account</a>
                         <div class="dropdown-menu rounded-0 rounded-bottom border-0 shadow-sm m-0">
-                            <a href="" class="dropdown-item">School Facilities</a>
-                            <a href="" class="dropdown-item">Popular Teachers</a>
+                            <ul>
+                                {% if not user_auth %}
+                                    <li><a href={% url 'login_view' %}>Log in</a></li>
+                                    <li><a href={% url 'registration_view' %}>Registration</a></li>
+                                {% else %}
+                                    <li><a href={% url 'logout_view' %}>Log out</a></li>
+                                {% endif %}
+                            </ul>
+                            {% if user_manager %}
+                                <li class="dropdown"><a href="#"><span>Manager</span> <i class="bi bi-chevron-down"></i></a>
+                                    <ul>
+                                        <li><a href={% url 'main_page:list_reservations' %}>List of reservations</a></li>
+                                    </ul>
+                                </li>
+                            {% endif %}
                         </div>
                     </div>
-                    <a href="{% url 'contacts' %}" class="nav-item nav-link{% if request.path == '/contacts/' %} active{% endif %}">Contact Us</a>
+
+
                 </div>
 
                 <a href="{% url 'join_us' %}" class="btn btn-primary rounded-pill px-3 d-none d-lg-block">Join Us<i class="fa fa-arrow-right ms-3"></i></a>

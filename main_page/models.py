@@ -208,3 +208,20 @@ class ContactUs(models.Model):
     class Meta:
         ordering = ('-date',)
         verbose_name_plural = "Зворотній зв'язок"
+
+
+class Schedule(models.Model):
+
+    title = models.CharField(max_length=50, verbose_name="Заговок")
+    desc = models.TextField(max_length=500, verbose_name="Текст", blank=True)
+    image = models.ImageField(upload_to=get_file_name, blank=True, verbose_name="Зображення")
+    position = models.SmallIntegerField(unique=True, verbose_name="Позиція")
+    is_visible = models.BooleanField(default=True, verbose_name="Видимість")
+
+
+    def __str__(self):
+        return f'{self.title}'
+
+    class Meta:
+        ordering = ('position',)
+        verbose_name_plural = 'Розклад занять'

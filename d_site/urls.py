@@ -17,16 +17,22 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from main_page import views
+from main_page.views import index, about, contacts, classes, join_us, schedule
+from account.views import registration_view, login_view, logout_view
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.index, name='index'),
-    path('about/', views.about, name='about'),
-    path('contacts/', views.contacts, name='contacts'),
-    path('classes/', views.classes, name='classes'),
-    path('join_us/', views.join_us, name='join_us')
+    path('', index, name='index'),
+    path('about/', about, name='about'),
+    path('contacts/', contacts, name='contacts'),
+    path('classes/', classes, name='classes'),
+    path('join_us/', join_us, name='join_us'),
+    path('logout/', logout_view, name='logout_view'),
+    path('login/', login_view, name='login_view'),
+    path('registration/', registration_view, name='registration_view'),
+    path('schedule/', schedule, name='schedule')
+
 ]
 
 if settings.DEBUG:

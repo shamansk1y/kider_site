@@ -1,40 +1,15 @@
 from django.shortcuts import render, redirect
+
+from .context_data import get_common_context, get_page_context
 from .forms import MakeAppointmentForm, SubscriptionForm, ContactUsForm
-from .models import Slider, Team, About, Testimonial, Classes, Facilities, Call, Gallery, Contacts
+from .models import Subscription, ContactUs, Appointment
+from django.contrib.auth.decorators import login_required, user_passes_test
 
-
-def get_common_context():
-    """
-    Return a dictionary containing common context data used in multiple views.
-
-    Returns:
-        A dictionary containing common context data used in multiple views.
-    """
-    return {
-        'slider': Slider.objects.filter(is_visible=True),
-        'team': Team.objects.all()[:3],
-        'about': About.objects.get(),
-        'testimonial': Testimonial.objects.filter(is_visible=True),
-        'classes': Classes.objects.all().order_by('?')[:6],
-        'facilities': Facilities.objects.get(),
-        'call': Call.objects.get(),
-        'gallery': Gallery.objects.all().order_by('?')[:6],
-        'contacts': Contacts.objects.get(),
-        'make_appointment': MakeAppointmentForm(),
-        'subscription': SubscriptionForm(),
-        'contact_us': ContactUsForm(),
-    }
+def is_manager(user):
+    return user.groups.filter(name='manager').exists()
 
 def handle_post_request(request):
-    """
-    Handle a POST request.
 
-    Args:
-        request: The HTTP request object.
-
-    Returns:
-        A redirect response if the form data is valid; otherwise, None.
-    """
     make_appointment = MakeAppointmentForm(request.POST)
     contact_us = ContactUsForm(request.POST)
     subscription = SubscriptionForm(request.POST)
@@ -50,81 +25,64 @@ def handle_post_request(request):
         return redirect('/')
 
 def index(request):
-    """
-    Render the index page.
-
-    Args:
-        request: The HTTP request object.
-
-    Returns:
-        A response object that renders the index page with context data.
-    """
     if request.method == 'POST':
         handle_post_request(request)
 
-    context = get_common_context()
-    return render(request, 'index.html', context=context)
+    data, context = get_page_context(request)
+    return render(request, 'index.html', context=data)
 
 def about(request):
-    """
-    Render the about page.
-
-    Args:
-        request: The HTTP request object.
-
-    Returns:
-        A response object that renders the about page with context data.
-    """
     if request.method == 'POST':
         handle_post_request(request)
 
-    context = get_common_context()
-    return render(request, 'about.html', context=context)
+    data, context = get_page_context(request)
+    return render(request, 'about.html', context=data)
 
 def contacts(request):
-    """
-    Render the contacts page.
-
-    Args:
-        request: The HTTP request object.
-
-    Returns:
-        A response object that renders the contacts page with context data.
-    """
     if request.method == 'POST':
         handle_post_request(request)
 
-    context = get_common_context()
-    return render(request, 'contact.html', context=context)
+    data, context = get_page_context(request)
+    return render(request, 'contact.html', context=data)
 
 def classes(request):
-    """
-    Render the classes page.
-
-    Args:
-        request: The HTTP request object.
-
-    Returns:
-        A response object that renders the classes page with context data.
-    """
     if request.method == 'POST':
         handle_post_request(request)
 
-    context = get_common_context()
-    return render(request, 'classes.html', context=context)
+    data, context = get_page_context(request)
+    return render(request, 'classes.html', context=data)
 
 def join_us(request):
-    """
-    Render the join us page.
-
-    Args:
-        request: The HTTP request object.
-
-    Returns:
-        A response object that renders the join us page with context data.
-    """
     if request.method == 'POST':
         handle_post_request(request)
 
-    context = get_common_context()
-    return render(request, 'join_us.html', context=context)
+    data, context = get_page_context(request)
+    return render(request, 'join_us.html', context=data)
+
+
+def schedule(request):
+    if request.method == 'POST':
+        handle_post_request(request)
+
+    data, context = get_page_context(request)
+    return render(request, 'schedule.html', context=data)
+
+
+
+@login_required(login_url='/login/')
+@user_passes_test(is_manager)
+def update_reservation(request, pk):
+    Subscription.objects.filter(pk=pk).update(is_processed=True)
+    ContactUs.objects.filter(pk=pk).update(is_processed=True)
+    Appointment.objects.filter(pk=pk).update(is_processed=True)
+    return redirect('main_page:list_reservations')
+
+
+@login_required(login_url='/login/')
+@user_passes_test(is_manager)
+def list_reservation(request):
+    subscription = Subscription.objects.filter(is_processed=False)
+    contact_us = ContactUs.objects.filter(is_processed=False)
+    make_appointment = Appointment.objects.filter(is_processed=False)
+    return render(request, 'reservations.html', context={
+        'subscription': subscription, 'make_appointment': make_appointment, 'contact_us': contact_us })

@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import Team, Slider, About, Testimonial, Classes, Facilities, Call, Gallery, Contacts, Appointment,\
-    Subscription, ContactUs
+    Subscription, ContactUs, Schedule
 
 
 @admin.register(Team)
@@ -95,4 +95,12 @@ class ContactUsAdmin(admin.ModelAdmin):
     model = ContactUs
     list_editable = ['name', 'email', 'subject', 'message', 'is_processed']
     list_display = ['name', 'email', 'subject', 'message', 'date', 'date_processing', 'is_processed']
+    list_display_links = None
+
+
+@admin.register(Schedule)
+class ScheduleAdmin(admin.ModelAdmin):
+    model = Schedule
+    list_editable = ['title', 'position', 'image', 'is_visible', 'desc']
+    list_display = ['title', 'position', 'image', 'is_visible', 'desc']
     list_display_links = None
