@@ -17,13 +17,13 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from main_page.views import index, about, contacts, classes, join_us, schedule
+from main_page.views import about, contacts, classes, join_us, schedule
 from account.views import registration_view, login_view, logout_view
 
 
 urlpatterns = [
+    path('', include('main_page.urls')),
     path('admin/', admin.site.urls),
-    path('', index, name='index'),
     path('about/', about, name='about'),
     path('contacts/', contacts, name='contacts'),
     path('classes/', classes, name='classes'),
@@ -31,7 +31,7 @@ urlpatterns = [
     path('logout/', logout_view, name='logout_view'),
     path('login/', login_view, name='login_view'),
     path('registration/', registration_view, name='registration_view'),
-    path('schedule/', schedule, name='schedule')
+    path('schedule/', schedule, name='schedule'),
 
 ]
 

@@ -71,18 +71,24 @@ def schedule(request):
 
 @login_required(login_url='/login/')
 @user_passes_test(is_manager)
-def update_reservation(request, pk):
+def update_manager(request, pk):
     Subscription.objects.filter(pk=pk).update(is_processed=True)
     ContactUs.objects.filter(pk=pk).update(is_processed=True)
     Appointment.objects.filter(pk=pk).update(is_processed=True)
-    return redirect('main_page:list_reservations')
+    return redirect('main_page:manager_list')
 
 
 @login_required(login_url='/login/')
 @user_passes_test(is_manager)
-def list_reservation(request):
-    subscription = Subscription.objects.filter(is_processed=False)
-    contact_us = ContactUs.objects.filter(is_processed=False)
-    make_appointment = Appointment.objects.filter(is_processed=False)
-    return render(request, 'reservations.html', context={
-        'subscription': subscription, 'make_appointment': make_appointment, 'contact_us': contact_us })
+def manager_list(request):
+    subscription_viev_manager = Subscription.objects.filter(is_processed=False)
+    contact_us_viev_manager = ContactUs.objects.filter(is_processed=False)
+    make_appointment_viev_manager = Appointment.objects.filter(is_processed=False)
+    data = {
+        'subscription_viev_manager': subscription_viev_manager,
+        'make_appointment_viev_manager': make_appointment_viev_manager,
+        'contact_us_viev_manager': contact_us_viev_manager,
+    }
+    context_data = get_common_context()
+    data.update(context_data)
+    return render(request, 'manager.html', context=data)
