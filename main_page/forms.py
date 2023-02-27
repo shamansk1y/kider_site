@@ -1,3 +1,25 @@
+"""
+This module defines Django forms used for the main_page app.
+
+MakeAppointmentForm is a ModelForm that allows users to make an appointment by providing their name,
+email, child's name, child's age, and a message.
+
+SubscriptionForm is a ModelForm that allows users to subscribe to a service by providing their email.
+
+ContactUsForm is a ModelForm that allows users to contact the website administrators by providing their name,
+email, subject, and message.
+
+All forms define the fields to be displayed in the form and their corresponding HTML input attributes.
+These forms are used to validate and process user input on the front-end and back-end of the website.
+
+Attributes:
+    - MakeAppointmentForm (class): A Django ModelForm for making appointments.
+    - SubscriptionForm (class): A Django ModelForm for subscribing to a service.
+    - ContactUsForm (class): A Django ModelForm for contacting the website administrators.
+
+"""
+
+
 from django import forms
 from main_page.models import Appointment, Subscription, ContactUs
 

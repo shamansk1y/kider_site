@@ -1,3 +1,23 @@
+"""
+This is a admin configuration file defining the presentation and editability of models in the admin interface.
+This file registers the following models and their respective fields for the admin site:
+- Team
+- Slider
+- About
+- Testimonial
+- Classes
+- Facilities
+- Call
+- Gallery
+- Contacts
+- Appointment
+- Subscription
+- ContactUs
+- Schedule
+- Headlines
+"""
+
+
 from django.contrib import admin
 from .models import Team, Slider, About, Testimonial, Classes, Facilities, Call, Gallery, Contacts, Appointment,\
     Subscription, ContactUs, Schedule, Headlines

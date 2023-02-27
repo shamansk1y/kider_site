@@ -1,3 +1,18 @@
+"""
+This module contains two Django form classes: UserLogin and UserRegistration.
+
+UserLogin is a form for authenticating user login credentials. It takes a username and password input from the user,
+verifies that the username and password are valid, and raises a ValidationError if they are not.
+
+UserRegistration is a form for creating new user accounts. It takes a username, password, and password confirmation
+input from the user, verifies that the passwords match, and raises a ValidationError if they do not.
+
+Inputs:
+- UserLogin form: username (str), password (str)
+- UserRegistration form: username (str), password (str), password2 (str)
+"""
+
+
 from django import forms
 from django.contrib.auth import get_user_model, authenticate
 

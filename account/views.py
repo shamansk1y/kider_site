@@ -1,3 +1,25 @@
+"""
+This module contains views for user registration and login pages.
+
+Functions:
+- logout_view: Logs out the current user and redirects to the homepage.
+- login_view: Renders the login form and handles user authentication.
+- registration_view: Renders the registration form and creates a new user.
+
+Dependencies:
+- render: Renders an HTML template with a given context dictionary.
+- redirect: Redirects to a given URL.
+- get_common_context: A function from the main_page.context_data module that returns a dictionary with common
+context data for all pages.
+- UserRegistration: A Django form class for user registration.
+- UserLogin: A Django form class for user login.
+- authenticate: Authenticates a user with a given username and password.
+- login: Logs in a user and creates a session.
+- logout: Logs out the current user and destroys the session.
+- User: The Django user model for the application.
+
+"""
+
 from django.shortcuts import render, redirect
 from main_page.context_data import get_common_context
 from .forms import UserRegistration, UserLogin
